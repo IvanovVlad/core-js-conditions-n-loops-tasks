@@ -181,8 +181,18 @@ function convertNumberToString(numberStr) {
  *  '0123210'   => true
  *  'qweqwe'    => false
  */
-function isPalindrome(/* str */) {
-  throw new Error('Not implemented');
+function isPalindrome(str) {
+  let isPalyndrome = true;
+  const breakIndex = str.length % 2 === 0 ? str.length / 2 : str.length / 2 + 1;
+
+  for (let i = 0; i < breakIndex; i += 1) {
+    if (!isPalyndrome) break;
+    const left = str[i];
+    const right = str[str.length - i - 1];
+    isPalyndrome = left === right;
+  }
+
+  return isPalyndrome;
 }
 
 /**
@@ -199,8 +209,11 @@ function isPalindrome(/* str */) {
  *  'qwerty', 'Q'     => -1
  *  'qwerty', 'p'     => -1
  */
-function getIndexOf(/* str, letter */) {
-  throw new Error('Not implemented');
+function getIndexOf(str, letter) {
+  for (let i = 0; i < str.length; i += 1) {
+    if (str[i] === letter) return i;
+  }
+  return -1;
 }
 
 /**
@@ -218,8 +231,10 @@ function getIndexOf(/* str, letter */) {
  *  12345, 0    => false
  *  12345, 6    => false
  */
-function isContainNumber(/* num, digit */) {
-  throw new Error('Not implemented');
+function isContainNumber(num, digit) {
+  const str = `${num}`;
+  const letter = `${digit}`;
+  return getIndexOf(str, letter) > -1;
 }
 
 /**
@@ -235,8 +250,29 @@ function isContainNumber(/* num, digit */) {
  *  [2, 3, 9, 5] => 2       => 2 + 3 === 5 then balance element is 9 and its index = 2
  *  [1, 2, 3, 4, 5] => -1   => no balance element
  */
-function getBalanceIndex(/* arr */) {
-  throw new Error('Not implemented');
+function getBalanceIndex(arr) {
+  const leftSum = (digits, i) => {
+    let sum = 0;
+    for (let j = 0; j < i; j += 1) {
+      sum += digits[j];
+    }
+    return sum;
+  };
+  const rightSum = (digits, i) => {
+    let sum = 0;
+    for (let j = i; j < digits.length; j += 1) {
+      sum += digits[j];
+    }
+    return sum;
+  };
+
+  for (let i = 1; i < arr.length; i += 1) {
+    if (leftSum(arr, i) === rightSum(arr, i + 1)) {
+      return i;
+    }
+  }
+
+  return -1;
 }
 
 /**

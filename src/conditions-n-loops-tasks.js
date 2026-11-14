@@ -21,8 +21,8 @@
  *  0  => true
  *  -5 => false
  */
-function isPositive(/* number */) {
-  throw new Error('Not implemented');
+function isPositive(number) {
+  return number >= 0;
 }
 
 /**
@@ -38,8 +38,12 @@ function isPositive(/* number */) {
  *  -5, 0, 5      => 5
  *  -0.1, 0, 0.2  => 0.2
  */
-function getMaxNumber(/* a, b, c */) {
-  throw new Error('Not implemented');
+function getMaxNumber(a, b, c) {
+  const getMax = (n1, n2) => {
+    return n1 > n2 ? n1 : n2;
+  };
+
+  return getMax(getMax(a, b), c);
 }
 
 /**
@@ -61,8 +65,10 @@ function getMaxNumber(/* a, b, c */) {
  * {x: 1, y: 1}, {x: 2, y: 8} => false
  * {x: 1, y: 1}, {x: 2, y: 8} => false
  */
-function canQueenCaptureKing(/* queen, king */) {
-  throw new Error('Not implemented');
+function canQueenCaptureKing(queen, king) {
+  const koStraightLine = queen.x === king.x || queen.y === king.y;
+  const koDiagonal = Math.abs(queen.x - king.x) === Math.abs(queen.y - king.y);
+  return koStraightLine || koDiagonal;
 }
 
 /**
@@ -83,8 +89,9 @@ function canQueenCaptureKing(/* queen, king */) {
  *  2, 2, 5   => false
  *  3, 0, 3   => false
  */
-function isIsoscelesTriangle(/* a, b, c */) {
-  throw new Error('Not implemented');
+function isIsoscelesTriangle(a, b, c) {
+  const isTriangle = a + b > c && a + c > b && b + c > a;
+  return isTriangle && (a === b || b === c || a === c);
 }
 
 /**
@@ -120,8 +127,46 @@ function convertToRomanNumerals(/* num */) {
  *  '10,5'    => 'one zero point five'
  *  '1950.2'  => 'one nine five zero point two'
  */
-function convertNumberToString(/* numberStr */) {
-  throw new Error('Not implemented');
+function convertNumberToString(numberStr) {
+  let result = '';
+
+  const chooseWord = (s) => {
+    switch (s) {
+      case '0':
+        return 'zero';
+      case '1':
+        return 'one';
+      case '2':
+        return 'two';
+      case '3':
+        return 'three';
+      case '4':
+        return 'four';
+      case '5':
+        return 'five';
+      case '6':
+        return 'six';
+      case '7':
+        return 'seven';
+      case '8':
+        return 'eight';
+      case '9':
+        return 'nine';
+      case '.':
+      case ',':
+        return 'point';
+      case '-':
+        return 'minus';
+      default:
+        return 'undefined';
+    }
+  };
+
+  for (let i = 0; i < numberStr.length; i += 1) {
+    result += `${i > 0 ? ' ' : ''}${chooseWord(numberStr[i])}`;
+  }
+
+  return result;
 }
 
 /**
